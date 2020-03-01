@@ -25,26 +25,6 @@ public class Handler {
     private UserStore userStore;
     private JobStore jobStore;
 
-    @PostMapping("login")
-    public ResponseEntity<String> logIn(
-            @RequestParam(value = "password", defaultValue="") String password,
-            @RequestParam(value = "email", defaultValue="") String email) {
-
-        this.userStore = new UserStore();
-        User user = userStore.getUser(email, password);
-        if(user == null) {
-
-        } else {
-            this.user = user;
-            String outStr = "User " + user.getEmail() + " has successfully logged in!";
-            return new ResponseEntity<>(outStr, HttpStatus.OK);
-
-        }
-
-        return new ResponseEntity<>("Could not log in!", HttpStatus.FORBIDDEN);
-
-
-    }
 
 
 

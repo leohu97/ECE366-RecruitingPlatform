@@ -2,6 +2,7 @@ package com.recruiter.store;
 
 import com.recruiter.model.Job;
 import com.recruiter.model.User;
+import com.recruiter.util.UserHandler;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,12 +27,25 @@ public class UserStore {
 
 
 
-    public List<User> getAllUsers() {
+    public List<User> getUsers() {
         return new ArrayList<>(usersById.values());
     }
 
-    public boolean isCompany(Long userId) {
-        
+    public User findUserByEmail(String email) {
+        Iterator<Long> it1 = usersById.keySet().iterator();
+        while(it1.hasNext()) {
+            Long key = it1.next();
+            User user = usersById.get(key);
+            if (user.getEmail().equals(email))
+                return user;
+        }
+        return null;
+    }
+
+    public void addUser(UserHandler.CreateUserRequest createUserRequest) {
+        long userId = nextId.getAndIncrement();
+        User user = new User(userId, createUserRequest.getFirstName(), createUserRequest.getLastName(), createUserRequest.getAccountType(), createUserRequest.getEmail(), createUserRequest.getPassword());
+        usersById.put(userId, user);
     }
 
     public User getUser(String email, String password) {
@@ -44,5 +58,6 @@ public class UserStore {
         }
         return null;
     }
+
 
 }

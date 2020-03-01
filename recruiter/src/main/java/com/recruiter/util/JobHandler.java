@@ -1,5 +1,6 @@
 package com.recruiter.util;
 import com.recruiter.model.User;
+import com.recruiter.store.UserStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,19 +23,21 @@ public class JobHandler {
     //private static WebClient client = WebClient.builder().baseUrl("http://localhost:8080").build();
 
 
+    public JobHandler() {
+    }
+
     @PostMapping("createJobPosting")
     public ResponseEntity<String> createJobPosting(
             @RequestParam(value = "company", defaultValue="") String company,
             @RequestParam(value = "title", defaultValue = "") String title,
             @RequestParam(value = "salary", defaultValue = "0") Long salary,
             Long userId) {
-        if(userStore.isCompany()) {
-            CreateJobRequest createJobRequest = new CreateJobRequest(company, title, salary);
-            Job job = jobStore.addJob(createJobRequest);
-            return ResponseEntity.status(HttpStatus.OK).body("A new job has been posted!");
-        } else {
-            return new ResponseEntity<>("User is not a company", HttpStatus.FORBIDDEN);
-        }
+
+        JobHandler.CreateJobRequest createJobRequest = new CreateJobRequest(company, title, salary);
+        Job job = jobStore.addJob(createJobRequest);
+        return ResponseEntity.status(HttpStatus.OK).body("A new job has been posted!");
+//            return new ResponseEntity<>("User is not a company", HttpStatus.FORBIDDEN);
+
 
 
 
@@ -64,7 +67,7 @@ public class JobHandler {
         return new ResponseEntity<>(outStr, HttpStatus.OK);
     }
 
-    public static class CreateJobRequest {
+    public class CreateJobRequest {
         private String company;
         private String title;
         private Long salary;
