@@ -1,33 +1,43 @@
 package com.recruiter.model;
 
+import java.util.Objects;
+
 public class Job {
+    private Long jobId;
     private Long salary;
     private String company;
     private String title;
-    private Long jobId;
+    private String location;
+    private Long experienceLevel;
+    private String jobStatus;
 
-    public Job(Long jobId, String company, String title, Long salary) {
+    public Job(Long jobId, Long salary, String company, String title, String location, Long experienceLevel, String jobStatus) {
+        this.jobId = jobId;
         this.salary = salary;
         this.company = company;
         this.title = title;
-        this.jobId = jobId;
+        this.location = location;
+        this.experienceLevel = experienceLevel;
+        this.jobStatus = jobStatus;
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (!(obj instanceof Job)) {
-            return false;
-        }
-        Job other = (Job) obj;
-        return super.equals(other)
-                || this.jobId.equals(other.getJobId())
-                && this.company.equals(other.getCompany())
-                && this.salary.equals(other.getSalary())
-                && this.title.equals(other.getTitle());
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Job job = (Job) o;
+        return Objects.equals(salary, job.salary) &&
+                Objects.equals(company, job.company) &&
+                Objects.equals(title, job.title) &&
+                Objects.equals(jobId, job.jobId) &&
+                Objects.equals(location, job.location) &&
+                Objects.equals(experienceLevel, job.experienceLevel) &&
+                Objects.equals(jobStatus, job.jobStatus);
     }
 
-    public Long getJobId() {
-        return jobId;
+    @Override
+    public int hashCode() {
+        return Objects.hash(salary, company, title, jobId, location, experienceLevel, jobStatus);
     }
 
     public Long getSalary() {
@@ -53,4 +63,37 @@ public class Job {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public Long getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(Long jobId) {
+        this.jobId = jobId;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Long getExperienceLevel() {
+        return experienceLevel;
+    }
+
+    public void setExperienceLevel(Long experienceLevel) {
+        this.experienceLevel = experienceLevel;
+    }
+
+    public String getJobStatus() {
+        return jobStatus;
+    }
+
+    public void setJobStatus(String jobStatus) {
+        this.jobStatus = jobStatus;
+    }
 }
+

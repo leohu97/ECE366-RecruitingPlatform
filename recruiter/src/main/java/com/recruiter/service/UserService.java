@@ -38,6 +38,22 @@ public class UserService {
         }
     }
 
+    // -1 : user does not exist
+    // 0 : user is a company
+    // 1 : user is not a company
+    public int isCompany(Long userId) {
+        Optional<User> user = Optional.ofNullable(userStore.findUserById(userId));
+        if(user.isPresent()) {
+            if(user.get().getAccountType().equals("Company")) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } else {
+            return -1;
+        }
+    }
+
     // 0 : successful login
     // -1 : no account with the given email exists
     // 1 : email exists put password is wrong

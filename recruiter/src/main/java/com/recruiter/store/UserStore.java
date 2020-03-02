@@ -42,6 +42,18 @@ public class UserStore {
         return null;
     }
 
+    public User findUserById(Long userId) {
+        Iterator<Long> it1 = usersById.keySet().iterator();
+        while(it1.hasNext()) {
+            Long key = it1.next();
+            if (userId.equals(key)) {
+                User user = usersById.get(key);
+                return user;
+            }
+        }
+        return null;
+    }
+
     public void addUser(UserHandler.CreateUserRequest createUserRequest) {
         long userId = nextId.getAndIncrement();
         User user = new User(userId, createUserRequest.getFirstName(), createUserRequest.getLastName(), createUserRequest.getAccountType(), createUserRequest.getEmail(), createUserRequest.getPassword());

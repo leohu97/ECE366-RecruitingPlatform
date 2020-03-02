@@ -1,5 +1,6 @@
 package com.recruiter.util;
 
+import com.google.gson.Gson;
 import com.recruiter.model.Job;
 import com.recruiter.model.User;
 import com.recruiter.service.UserService;
@@ -40,6 +41,7 @@ public class UserHandler {
         } else if(status == 0){
             return new ResponseEntity<>("Successfully logged in!", HttpStatus.OK);
         }
+        
         return new ResponseEntity<>("ERROR!", HttpStatus.NOT_FOUND);
     }
 
@@ -58,7 +60,7 @@ public class UserHandler {
         } else if (status == 1) {
             return new ResponseEntity<>("An account with the email, " + email +", already exists!", HttpStatus.CONFLICT);
         } else if(status == -1) {
-            return new ResponseEntity<>("At least one of the required fields is empty!", HttpStatus.OK);
+            return new ResponseEntity<>("At least one of the required fields is empty!", HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>("Created account!", HttpStatus.OK);
         }
@@ -68,13 +70,15 @@ public class UserHandler {
     @GetMapping("getAccounts")
     public ResponseEntity<String> getAccounts() {
         List<User> users = userStore.getUsers();
-        String outStr = "";
-        for(int i = 0; i<users.size(); i++){
-            User curUser = users.get(i);
-            outStr = outStr + curUser.getUserId() + " " + curUser.getFirstName()+ " " + curUser.getLastName() + " " + curUser.getEmail() +
-                    " " + curUser.getAccountType() + " " + curUser.getPassword() + "\n";
-        }
-        return new ResponseEntity<>(outStr, HttpStatus.OK);
+        Gson gson = new Gson();
+        String json = gson.toJson(users);
+//        String outStr = "";
+//        for(int i = 0; i<users.size(); i++){
+//            User curUser = users.get(i);
+//            outStr = outStr + curUser.getUserId() + " " + curUser.getFirstName()+ " " + curUser.getLastName() + " " + curUser.getEmail() +
+//                    " " + curUser.getAccountType() + " " + curUser.getPassword() + "\n";
+//        }
+        return new ResponseEntity<>(json, HttpStatus.OK);
     }
 
 
