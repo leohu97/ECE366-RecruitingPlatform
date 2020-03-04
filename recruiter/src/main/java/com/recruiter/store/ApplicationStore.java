@@ -24,9 +24,9 @@ public class ApplicationStore {
     public ApplicationStore(){
         this.ApplicationsById =
                 List.of(
-                        new Application(1L, 1L, 1L),
-                        new Application(2L, 2L, 2L),
-                        new Application(3L, 3L, 3L))
+                        new Application(1L, 1L, 1L, "Pending"),
+                        new Application(2L, 2L, 2L, "Rejected" ),
+                        new Application(3L, 3L, 3L, "Accepted"))
                         .stream()
                         .collect(Collectors.toConcurrentMap(Application -> Application.getApplicationId(), Application -> Application));
     }
@@ -46,7 +46,8 @@ public class ApplicationStore {
     public Application addApplication(final ApplicationHandler.CreateApplicationRequest createApplicationRequest) {
         long applicationId = nextId.getAndIncrement();
         Application application = new Application(applicationId, createApplicationRequest.getJobId(),
-                createApplicationRequest.getUserId());
+                createApplicationRequest.getUserId(),
+                createApplicationRequest.getApplicationStatus());
         ApplicationsById.put(applicationId, application);
         return application;
     }

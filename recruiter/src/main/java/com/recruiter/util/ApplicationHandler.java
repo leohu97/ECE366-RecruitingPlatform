@@ -36,13 +36,14 @@ public class ApplicationHandler {
     @PostMapping("createApplicationPosting")
     public ResponseEntity<String> createApplicationPosting(
             @RequestParam(value = "jobId", defaultValue = "") Long jobId,
-            @RequestParam(value = "userId", defaultValue = "") Long userId) {
+            @RequestParam(value = "userId", defaultValue = "") Long userId,
+            @RequestParam(value = "applicationStatus", defaultValue = "") String applicationStatus) {
 
         int userStatus = userService.isValidUser(userId);
         if (userStatus == 1) {
             int jobStatus = jobService.isValidJob(jobId);
             if (jobStatus == 0) {
-                ApplicationHandler.CreateApplicationRequest createApplicationRequest = new CreateApplicationRequest(jobId, userId);
+                ApplicationHandler.CreateApplicationRequest createApplicationRequest = new CreateApplicationRequest(jobId, userId, applicationStatus);
                 int ApplicationPostStatus = applicationService.addApplicationPosting(createApplicationRequest);
                 if (ApplicationPostStatus == 0) {
                     return ResponseEntity.status(HttpStatus.OK).body("A new Application has been posted!");
@@ -66,7 +67,8 @@ public class ApplicationHandler {
     @DeleteMapping("removeApplicationPosting")
     public ResponseEntity<String> removeApplicationPosting(
             @RequestParam(value = "ApplicationId", defaultValue = "") Long applicationId,
-            @RequestParam(value = "userId", defaultValue = "") Long userId) {
+            @RequestParam(value = "userId", defaultValue = "") Long userId,
+            @RequestParam(value = "applicationStatus", defaultValue = "") String applicationStatus) {
         int status = userService.isValidUser(userId);
         if (status == 1) {
             if (applicationService.isValidApplication(applicationId)) {
@@ -87,9 +89,11 @@ public class ApplicationHandler {
     @GetMapping("/getOpenApplications")
     public ResponseEntity<String> getOpenApplications(
             @RequestParam(value = "jobId", defaultValue = "") Long jobId,
-            @RequestParam(value = "userId", defaultValue = "") Long userId) {
+            @RequestParam(value = "userId", defaultValue = "") Long userId,
+            @RequestParam(value = "applicationStatus", defaultValue = "") String applicationStatus) {
+
         Gson gson = new Gson();
-        CreateApplicationRequest application = new CreateApplicationRequest(jobId, userId);
+        CreateApplicationRequest application = new CreateApplicationRequest(jobId, userId, applicationStatus);
         List<Application> applications = applicationService.getOpenApplications(application);
         String json = gson.toJson(applications);
         return new ResponseEntity<>(json, HttpStatus.OK);
@@ -98,10 +102,16 @@ public class ApplicationHandler {
     public class CreateApplicationRequest {
         private Long jobId;
         private Long userId;
+        private String applicationStatus;
 
-        public CreateApplicationRequest(Long jobId, Long userId) {
+        public CreateApplicationRequest(Long jobId, Long userId, String applicationStatus) {
             this.jobId = jobId;
             this.userId = userId;
+            this.applicationStatus = applicationStatus;
+        }
+
+        public String getApplicationStatus() {
+            return applicationStatus;
         }
 
         public Long getJobId() {
