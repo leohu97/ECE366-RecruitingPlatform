@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4c9e99a0-d8c0-4dc3-806d-666eadd9022d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/util/ApplicationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/util/ApplicationHandler.java" afterDir="false" />
-    </list>
+    <list default="true" id="4c9e99a0-d8c0-4dc3-806d-666eadd9022d" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -136,7 +134,9 @@
         </entry>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
