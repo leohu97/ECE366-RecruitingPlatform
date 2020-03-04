@@ -37,7 +37,7 @@ public class ApplicationHandler {
     public ResponseEntity<String> createApplicationPosting(
             @RequestParam(value = "jobId", defaultValue = "") Long jobId,
             @RequestParam(value = "userId", defaultValue = "") Long userId,
-            @RequestParam(value = "applicationStatus", defaultValue = "") String applicationStatus) {
+            @RequestParam(value = "applicationStatus", defaultValue = "Pending") String applicationStatus) {
 
         int userStatus = userService.isValidUser(userId);
         if (userStatus == 1) {
