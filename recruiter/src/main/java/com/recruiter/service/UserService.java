@@ -40,14 +40,16 @@ public class UserService {
 
     // -1 : user does not exist
     // 0 : user is a company
-    // 1 : user is not a company
-    public int isCompany(Long userId) {
+    // 1 : user is an applicant
+    public int isValidUser(Long userId) {
         Optional<User> user = Optional.ofNullable(userStore.findUserById(userId));
         if(user.isPresent()) {
             if(user.get().getAccountType().equals("Company")) {
                 return 0;
-            } else {
+            } else if (user.get().getAccountType().equals("Applicant")){
                 return 1;
+            } else {
+                return -1;
             }
         } else {
             return -1;

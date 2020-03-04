@@ -33,12 +33,19 @@ public class JobService {
         }
     }
 
-    public boolean isValidJob(Long jobId) {
+    // -1 : job does not exist
+    // 0 : job exist and opened
+    // 1 : job exist but closed
+    public int isValidJob(Long jobId) {
         Optional<Job> job = Optional.ofNullable(jobStore.findJobById(jobId));
         if(job.isPresent()){
-            return true;
+            if (job.get().getJobStatus() == "Open") {
+                return 0;
+            } else {
+                return 1;
+            }
         } else {
-            return false;
+            return -1;
         }
     }
 

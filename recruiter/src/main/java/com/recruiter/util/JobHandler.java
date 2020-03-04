@@ -1,22 +1,15 @@
 package com.recruiter.util;
 import com.google.gson.Gson;
-import com.recruiter.model.User;
 import com.recruiter.service.JobService;
 import com.recruiter.service.UserService;
 import com.recruiter.store.UserStore;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.recruiter.model.Job;
 import com.recruiter.store.JobStore;
-import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.result.view.RedirectView;
 
-import java.io.IOException;
-import java.net.ServerSocket;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/jobs")
@@ -44,7 +37,7 @@ public class JobHandler {
             @RequestParam(value = "experienceLevel", defaultValue="0") Long experienceLevel,
             @RequestParam(value = "jobStatus", defaultValue="") String jobStatus) {
 
-        int status = userService.isCompany(userId);
+        int status = userService.isValidUser(userId);
         if (status == 0) {
             JobHandler.CreateJobRequest createJobRequest = new CreateJobRequest(salary, company, title, location, experienceLevel, jobStatus);
             int jobPostStatus = jobService.addJobPosting(createJobRequest);
@@ -66,9 +59,9 @@ public class JobHandler {
     public ResponseEntity<String> removeJobPosting(
             @RequestParam(value = "jobId", defaultValue = "") Long jobId,
             @RequestParam(value = "userId", defaultValue = "") Long userId) {
-        int status = userService.isCompany(userId);
+        int status = userService.isValidUser(userId);
         if (status == 0) {
-            if (jobService.isValidJob(jobId)) {
+            if (jobService.isValidJob(jobId) == 0) {
                 jobService.deleteJob(jobId);
                 return new ResponseEntity<>("The job with id " + jobId + "has been deleted!", HttpStatus.OK);
             } else {
