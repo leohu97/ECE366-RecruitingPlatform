@@ -1,51 +1,20 @@
 package com.recruiter.model;
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import javax.persistence.*;
+import java.util.Set;
 
+@Entity
+@Table(name = "user")
 public class User {
-    private String firstName;
-    private String lastName;
-    private String accountType; // applicant or company
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String email;
+    private String username;
     private String password;
-    private Long userId;
-
-    public User(Long userId, String firstName, String lastName, String accountType, String email, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.accountType = accountType;
-        this.email = email;
-        this.userId = userId;
-        this.password = password;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getAccountType() {
-        return accountType;
-    }
-
-    public void setAccountType(String accountType) {
-        this.accountType = accountType;
-    }
+    @Transient
+    private String passwordConfirm;
+    private String roles;
 
     public String getEmail() {
         return email;
@@ -55,11 +24,43 @@ public class User {
         this.email = email;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getRoles() {
+        return roles;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 }
