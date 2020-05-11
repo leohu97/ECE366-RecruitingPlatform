@@ -2,10 +2,23 @@ package com.recruiter.service;
 
 import com.recruiter.model.User;
 
+import java.util.List;
+import java.util.Optional;
+
 public interface UserService {
     void save(User user);
 
+    void delete(String username);
+
     User findByUsername(String username);
+
+    User findByEmail(String email);
+
+    boolean isCompanyUser(String currentUsername);
+
+    String getCurrentUsername();
+
+    List<User> findAll();
 }
 
 

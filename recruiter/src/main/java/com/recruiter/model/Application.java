@@ -1,32 +1,23 @@
 package com.recruiter.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "application")
 public class Application {
-    private Long applicationId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private Long jobId;
     private Long userId;
     private String applicationStatus;
 
-    public Application(Long applicationId, Long jobId, Long userId, String applicationStatus) {
-        this.applicationId = applicationId;
-        this.jobId = jobId;
-        this.userId = userId;
-        this.applicationStatus = applicationStatus;
+    public Long getId() {
+        return id;
     }
 
-    public String getApplicationStatus() {
-        return applicationStatus;
-    }
-
-    public void setApplicationStatus(String applicationStatus) {
-        this.applicationStatus = applicationStatus;
-    }
-
-    public Long getApplicationId() {
-        return applicationId;
-    }
-
-    public void setApplicationId(Long applicationId) {
-        this.applicationId = applicationId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getJobId() {
@@ -43,5 +34,13 @@ public class Application {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getApplicationStatus() {
+        return applicationStatus;
+    }
+
+    public void setApplicationStatus(String applicationStatus) {
+        this.applicationStatus = applicationStatus;
     }
 }

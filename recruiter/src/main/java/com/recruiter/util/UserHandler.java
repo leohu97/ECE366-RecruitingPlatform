@@ -1,17 +1,29 @@
 package com.recruiter.util;
 
+import com.google.gson.Gson;
 import com.recruiter.model.User;
 import com.recruiter.service.SecurityService;
 import com.recruiter.service.UserService;
 import com.recruiter.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class UserHandler {
@@ -23,6 +35,43 @@ public class UserHandler {
 
     @Autowired
     private UserValidator userValidator;
+
+    @RequestMapping(value = "/api/user", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<String> getAll(
+            @RequestParam("id") Optional<String> id,
+            @RequestParam("email") Optional<String> email,
+            @RequestParam("username") Optional<String> username,
+            @RequestParam("accountType") Optional<String> accountType) {
+        List<User> users = userService.findAll();
+        for (Optional<String> param : Arrays.asList(id, email, username, accountType)) {
+            if (param.isPresent()) {
+                users = users.stream()
+                        .filter(o -> o.getId().equals(param.get()))
+                        .collect(Collectors.toList());
+            }
+
+        }
+
+
+//        if (id.isPresent() || email.isPresent() || username.isPresent() || accountType.isPresent()) {
+//            Iterator<User> it1 = users.iterator();
+//            while(it1.hasNext()) {
+//
+//            }
+//            users = users.stream().filter(o -> Long.toString(o.getId()).equals(id.get())).collect(Collectors.toList());
+//        }
+
+        Gson gson = new Gson();
+        String json = gson.toJson(users);
+//        String outStr = "";
+//        for(int i = 0; i<users.size(); i++){
+//            User curUser = users.get(i);
+//            outStr = outStr + curUser.getUserId() + " " + curUser.getFirstName()+ " " + curUser.getLastName() + " " + curUser.getEmail() +
+//                    " " + curUser.getAccountType() + " " + curUser.getPassword() + "\n";
+//        }
+        return new ResponseEntity<>(json, HttpStatus.OK);
+    }
 
     @GetMapping("/registration")
     public String registration(Model model) {

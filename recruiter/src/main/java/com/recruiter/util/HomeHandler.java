@@ -3,13 +3,15 @@ package com.recruiter.util;
 import com.google.gson.Gson;
 import com.recruiter.model.User;
 import com.recruiter.repository.UserRepository;
+import com.recruiter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,12 +19,11 @@ import java.util.Optional;
 public class HomeHandler {
 
     @Autowired
+    UserService userService;
+
+    @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/")
-    public String home() {
-        return ("<h1>Welcome</h1>");
-    }
 
     @GetMapping("/user")
     public String user() {
@@ -36,8 +37,8 @@ public class HomeHandler {
 
     @GetMapping("/ttt")
     public ResponseEntity<String> getAccounts() {
-        Optional<User> users = Optional.ofNullable(userRepository.findByEmail("ttt@ttt.com"));
-        userRepository.deleteByUserName("ttt");
+        Optional<User> users = Optional.ofNullable(userService.findByEmail("ttt@ttt.com"));
+        userService.delete("ttt");
         Gson gson = new Gson();
         String json = gson.toJson(users);
 //        String outStr = "";
@@ -68,4 +69,22 @@ public class HomeHandler {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         return "Hello:" + name;
     }
+
+    @RequestMapping(value = "/username", method = RequestMethod.GET)
+    @ResponseBody
+    public String currentUserNameSimple(HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            return principal.getName();
+        }
+        else return null;
+    }
+
+    @RequestMapping(value = "/t4", method = RequestMethod.DELETE)
+    public void deleteUser(@RequestParam(name = "username") String username) {
+//        Optional<User> user = Optional.ofNullable(userRepository.findByUsername(username));
+        userRepository.deleteByUserName(username);
+
+    }
+
 }

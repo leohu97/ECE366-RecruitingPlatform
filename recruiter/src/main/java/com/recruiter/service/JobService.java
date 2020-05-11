@@ -1,24 +1,44 @@
-//package com.recruiter.service;
-//
-//import com.recruiter.model.Job;
-//import com.recruiter.model.User;
-//import com.recruiter.store.JobStore;
-//import com.recruiter.store.UserStore;
-//import com.recruiter.util.JobHandler;
-//
-//import java.util.ArrayList;
-//import java.util.Iterator;
-//import java.util.List;
-//import java.util.Optional;
-//import java.util.concurrent.ConcurrentMap;
-//
-//public class JobService {
-//
-//    private JobStore jobStore;
-//
-//    public JobService(JobStore jobStore) {
-//        this.jobStore = jobStore;
-//    }
+package com.recruiter.service;
+
+import com.recruiter.model.Job;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface JobService {
+    /**
+     * Save Job Object to jobRepository
+     * @param job Job Object
+     * @return 0
+     * @return 1
+     * @return 2
+     * @return 3
+     *
+     **/
+    Integer save(Job job);
+
+    Integer update(Job job);
+
+    void deleteById(Long id);
+
+    Job findById(Long id);
+
+    List<Job> findByTitle(String jobTitle);
+
+    Optional<Job> findByCompanyIdAndTitle(Long companyId, String title);
+
+    List<Job> findByCompanyId(Long id);
+
+    boolean isExist(Long jobId);
+
+    boolean isExist(String jobTitle);
+
+    boolean isExist(String jobTitle, Long companyId);
+
+    boolean isExist(Long jobId, Long companyId);
+
+    boolean isOpen(Long jobId);
+}
 //
 //    // -1 : blank field
 //    // 0 : job created

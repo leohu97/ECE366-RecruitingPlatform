@@ -16,6 +16,16 @@ public class User {
     private String passwordConfirm;
     private String roles;
 
+    private String accountType;
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
+
     public String getEmail() {
         return email;
     }

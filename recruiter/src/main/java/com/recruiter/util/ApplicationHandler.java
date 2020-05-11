@@ -1,4 +1,118 @@
-//package com.recruiter.util;
+package com.recruiter.util;
+
+import com.recruiter.model.Application;
+import com.recruiter.model.Job;
+import com.recruiter.model.User;
+import com.recruiter.repository.ApplicationRepository;
+import com.recruiter.service.ApplicationService;
+import com.recruiter.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+import java.util.Optional;
+
+@Controller
+public class ApplicationHandler {
+    @Autowired
+    private ApplicationService applicationService;
+
+    @Autowired
+    private ApplicationRepository applicationRepository;
+
+    @Autowired
+    private UserService userService;
+
+    @RequestMapping(value = "/api/applications", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity applicationSearch(
+            @RequestParam(name = "id", required = false) Long id,
+            @RequestParam(name = "jobid", required = false) Long jobid,
+            @RequestParam(name = "userid", required = false)  Long userid,
+            @RequestParam(name = "applicationstatus", required = false) String applicationstatus) {
+        if (null == id && null == jobid && null == userid && null == applicationstatus) {
+            return new ResponseEntity("At least one parameter is required", HttpStatus.BAD_REQUEST);
+        } else {
+            Application application = new Application();
+            application.setId(id);
+            application.setJobId(jobid);
+            application.setUserId(userid);
+            application.setApplicationStatus(applicationstatus);
+
+//            ExampleMatcher matcher = ExampleMatcher.matching()
+//                    .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
+//                    .withIgnoreCase(true)
+//                    .withMatcher("title", ExampleMatcher.GenericPropertyMatchers.startsWith())
+//                    .withIgnorePaths("focus");
+//            Example<Job> ex = Example.of(job, matcher);
+
+            Example<Application> ex = Example.of(application);
+
+            List<Application> result = applicationRepository.findAll(ex);
+            return new ResponseEntity(result, HttpStatus.OK);
+        }
+    }
+
+    @RequestMapping(value = "/api/applications", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity addApplication(
+            @RequestParam(name = "jobid") Long jobid) {
+        if(null == jobid) {
+            return new ResponseEntity<>("No Null Parameter Allowed", HttpStatus.BAD_REQUEST);
+        }
+        String currentUsername = userService.getCurrentUsername();
+        Optional<User> currentUser = Optional.ofNullable(userService.findByUsername(currentUsername));
+        if (!currentUser.isPresent()|| !currentUser.get().getAccountType().equals("Applicant")) {
+            return new ResponseEntity<>("You are not authorized to post a new application", HttpStatus.FORBIDDEN);
+        }
+
+        Application application = new Application();
+        application.setJobId(jobid);
+        application.setUserId(currentUser.get().getId());
+        application.setApplicationStatus("Pending");
+
+        Integer applicationPostStatus;
+        applicationPostStatus = applicationService.save(application, currentUser.get().getId());
+        if (applicationPostStatus == 0) {
+            return ResponseEntity.status(HttpStatus.OK).body("A new application has been posted!");
+        } else if(applicationPostStatus == 1) {
+            return new ResponseEntity<>("Application Already Exists!", HttpStatus.BAD_REQUEST);
+        } else if(applicationPostStatus == 2) {
+            return new ResponseEntity<>("Job Does Not Exist", HttpStatus.BAD_REQUEST);
+        } else if(applicationPostStatus == 3) {
+            return new ResponseEntity<>("Job Already Closed", HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>("Something Went Wrong", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/api/applications", method = RequestMethod.DELETE)
+    @ResponseBody
+    public ResponseEntity deleteApplication(
+            @RequestParam(name = "id") Long id) {
+        String currentUsername = userService.getCurrentUsername();
+        if (userService.isCompanyUser(currentUsername))
+            return new ResponseEntity<>("You are not authorized to delete a job", HttpStatus.FORBIDDEN);
+        else {
+            Optional<User> currentUser = Optional.ofNullable(userService.findByUsername(currentUsername));
+            Optional<Application> targetApplication = applicationService.findByIdAndUserId(id, currentUser.get().getId());
+            if (targetApplication.isPresent()) {
+                applicationService.deleteById(id);
+                return new ResponseEntity<>("Application Deleted", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Application Does Not Exist", HttpStatus.BAD_REQUEST);
+            }
+        }
+    }
+
+}
 //import com.google.gson.Gson;
 //import com.recruiter.service.ApplicationService;
 //import com.recruiter.service.UserService;

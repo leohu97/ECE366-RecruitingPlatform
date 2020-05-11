@@ -1,43 +1,38 @@
 package com.recruiter.model;
 
-import java.util.Objects;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "job")
 
 public class Job {
-    private Long jobId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private Long salary;
-    private String company;
     private String title;
     private String location;
     private Long experienceLevel;
-    private String jobStatus;
 
-    public Job(Long jobId, Long salary, String company, String title, String location, Long experienceLevel, String jobStatus) {
-        this.jobId = jobId;
-        this.salary = salary;
-        this.company = company;
-        this.title = title;
-        this.location = location;
-        this.experienceLevel = experienceLevel;
-        this.jobStatus = jobStatus;
+    // 0: Job Open
+    // 1: Job Closed
+    private Integer jobStatus;
+    private Long companyId;
+
+    public Long getCompanyId() {
+        return companyId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Job job = (Job) o;
-        return Objects.equals(salary, job.salary) &&
-                Objects.equals(company, job.company) &&
-                Objects.equals(title, job.title) &&
-                Objects.equals(jobId, job.jobId) &&
-                Objects.equals(location, job.location) &&
-                Objects.equals(experienceLevel, job.experienceLevel) &&
-                Objects.equals(jobStatus, job.jobStatus);
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(salary, company, title, jobId, location, experienceLevel, jobStatus);
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getSalary() {
@@ -48,28 +43,12 @@ public class Job {
         this.salary = salary;
     }
 
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public Long getJobId() {
-        return jobId;
-    }
-
-    public void setJobId(Long jobId) {
-        this.jobId = jobId;
     }
 
     public String getLocation() {
@@ -88,11 +67,11 @@ public class Job {
         this.experienceLevel = experienceLevel;
     }
 
-    public String getJobStatus() {
+    public Integer getJobStatus() {
         return jobStatus;
     }
 
-    public void setJobStatus(String jobStatus) {
+    public void setJobStatus(Integer jobStatus) {
         this.jobStatus = jobStatus;
     }
 }

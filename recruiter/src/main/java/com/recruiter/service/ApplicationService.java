@@ -1,25 +1,23 @@
-//package com.recruiter.service;
-//
-//import com.recruiter.model.Application;
-//import com.recruiter.model.User;
-//import com.recruiter.model.Job;
-//import com.recruiter.store.ApplicationStore;
-//import com.recruiter.store.UserStore;
-//import com.recruiter.store.JobStore;
-//import com.recruiter.util.ApplicationHandler;
-//
-//import java.util.ArrayList;
-//import java.util.Iterator;
-//import java.util.List;
-//import java.util.Optional;
-//import java.util.concurrent.ConcurrentMap;
-//
-//public class ApplicationService {
-//
-//    private ApplicationStore ApplicationStore;
-//
-//    public ApplicationService(ApplicationStore ApplicationStore) {
-//        this.ApplicationStore = ApplicationStore;
+package com.recruiter.service;
+
+import com.recruiter.model.Application;
+
+import java.util.Optional;
+
+public interface ApplicationService {
+
+    Integer save(Application application, Long userId);
+
+    void deleteById(Long id);
+
+    Application findById(Long id);
+
+    Optional<Application> findByIdAndUserId(Long applicationId, Long userId);
+
+    boolean isExist(Long applicationId);
+
+    boolean isExist(Long jobId, Long userId);
+}
 //    }
 //
 //    // -1 : blank field
