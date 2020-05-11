@@ -1,12 +1,15 @@
 package com.recruiter.service;
 
 import com.recruiter.model.Application;
+import com.recruiter.model.Job;
 
 import java.util.Optional;
 
 public interface ApplicationService {
 
     Integer save(Application application, Long userId);
+
+    Integer update(Application application);
 
     void deleteById(Long id);
 
@@ -17,6 +20,8 @@ public interface ApplicationService {
     boolean isExist(Long applicationId);
 
     boolean isExist(Long jobId, Long userId);
+
+    boolean isExist(Long applicationId, Long jobId, Long userId);
 }
 //    }
 //

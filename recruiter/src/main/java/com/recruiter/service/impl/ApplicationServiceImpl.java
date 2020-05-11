@@ -68,5 +68,9 @@ public class ApplicationServiceImpl implements ApplicationService {
         return applicationRepository.findByJobIdAndUserId(jobId, userId).isPresent();
     }
 
+    public boolean isExist(Long applicationId, Long jobId, Long userId) {
+        return applicationRepository.findByIdAndJobIdAndUserId(applicationId, jobId, userId).isPresent();
+    }
+
 
 }

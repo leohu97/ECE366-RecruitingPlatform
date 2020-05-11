@@ -84,7 +84,6 @@ public class JobHandler {
             @RequestParam(name = "jobStatus", required = false) Integer jobStatus) {
         String currentUsername = userService.getCurrentUsername();
         if (null == salary && null == title && null == location && null == experienceLevel && null == jobStatus) {
-            System.out.println(salary);
             return new ResponseEntity("At least one parameter is required", HttpStatus.BAD_REQUEST);
         } else if((title != null && title.isEmpty()) || (location != null && location.isEmpty())) {
             return new ResponseEntity<>("No Null Parameter Allowed", HttpStatus.BAD_REQUEST);

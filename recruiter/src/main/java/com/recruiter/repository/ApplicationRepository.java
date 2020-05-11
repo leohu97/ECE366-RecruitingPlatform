@@ -19,6 +19,8 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
 
     Optional<Application> findByIdAndUserId(Long Id, Long userId);
 
+    Optional<Application> findByIdAndJobIdAndUserId(Long applicationId, Long jobId, Long userId);
+
     @Modifying
     @Transactional
     @Query("delete from Application application where application.id = :id")

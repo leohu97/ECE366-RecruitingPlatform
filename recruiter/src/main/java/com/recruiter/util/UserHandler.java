@@ -1,11 +1,14 @@
 package com.recruiter.util;
 
 import com.google.gson.Gson;
+import com.recruiter.model.Job;
 import com.recruiter.model.User;
+import com.recruiter.repository.UserRepository;
 import com.recruiter.service.SecurityService;
 import com.recruiter.service.UserService;
 import com.recruiter.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -31,46 +34,32 @@ public class UserHandler {
     private UserService userService;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private SecurityService securityService;
 
     @Autowired
     private UserValidator userValidator;
 
-    @RequestMapping(value = "/api/user", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/users", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<String> getAll(
-            @RequestParam("id") Optional<String> id,
-            @RequestParam("email") Optional<String> email,
-            @RequestParam("username") Optional<String> username,
-            @RequestParam("accountType") Optional<String> accountType) {
-        List<User> users = userService.findAll();
-        for (Optional<String> param : Arrays.asList(id, email, username, accountType)) {
-            if (param.isPresent()) {
-                users = users.stream()
-                        .filter(o -> o.getId().equals(param.get()))
-                        .collect(Collectors.toList());
-            }
+            @RequestParam(name = "id", required = false) Long id,
+            @RequestParam(name = "email", required = false) String email,
+            @RequestParam(name = "username", required = false) String username,
+            @RequestParam(name = "accountType", required = false) String accountType) {
+        if (null == id && null == email && null == username && null == accountType) {
+            return new ResponseEntity("At least one parameter is required", HttpStatus.BAD_REQUEST);
+        } else {
+            User user = new User();
+            user.setId(id);
 
+            Example<User> ex = Example.of(user);
+
+            List<User> result = userRepository.findAll(ex);
+            return new ResponseEntity(result, HttpStatus.OK);
         }
-
-
-//        if (id.isPresent() || email.isPresent() || username.isPresent() || accountType.isPresent()) {
-//            Iterator<User> it1 = users.iterator();
-//            while(it1.hasNext()) {
-//
-//            }
-//            users = users.stream().filter(o -> Long.toString(o.getId()).equals(id.get())).collect(Collectors.toList());
-//        }
-
-        Gson gson = new Gson();
-        String json = gson.toJson(users);
-//        String outStr = "";
-//        for(int i = 0; i<users.size(); i++){
-//            User curUser = users.get(i);
-//            outStr = outStr + curUser.getUserId() + " " + curUser.getFirstName()+ " " + curUser.getLastName() + " " + curUser.getEmail() +
-//                    " " + curUser.getAccountType() + " " + curUser.getPassword() + "\n";
-//        }
-        return new ResponseEntity<>(json, HttpStatus.OK);
     }
 
     @GetMapping("/registration")

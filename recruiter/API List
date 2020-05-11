@@ -1,0 +1,148 @@
+Title: API List for Recruiting Platform
+Version: 1.0
+Date: May 11 2020
+
+User:
+
+    /api/users :
+        GET:
+            TODO
+
+    /registration & /login
+    using a form named "userForm" to submit
+    Templates web page can be found at src/main/webapp/
+
+Job:
+
+    /api/jobs
+        GET: Search for jobs by given parameters
+            params:
+                Long salary (Optional),
+                String title (Optional),
+                String location (Optional),
+                Long experienceLevel (Optional),
+
+            returns:
+                List of qualified jobs
+
+            accessible:
+                Company, Applicant
+
+            notes:
+                1. At least one of the parameter must be given
+
+        POST: Save a new job
+            params:
+                Long salary,
+                String title,
+                String location,
+                Long experienceLevel
+
+            returns:
+                Error Messages
+
+            accessible:
+                Company
+
+            notes:
+                1. All four parameters must be given
+                2. No identical job title allowed for single company user
+                3. Salary/ExperienceLevel could not be zero
+                4. Job Status will be automatically set to 0/Open
+
+        PUT: Update a existing job
+            params:
+                Long id, //job id
+                Long salary (Optional),
+                String title (Optional),
+                String location (Optional),
+                Long experienceLevel (Optional),
+                Integer jobStatus (Optional)
+
+            returns:
+                Error Messages
+
+            accessible:
+                Company
+
+            notes:
+                1. id must be given, all other parameters are optional but at least one should be given
+                2. Job restrictions from POST method still apply here
+                3. Job Status can be changed
+
+        DELETE: Delete a existing job
+            params:
+                String title
+
+            returns:
+                Error Messages
+
+            accessible:
+                Company
+
+            notes:
+                1. A company user can only delete a job posted by the same company user
+
+    /api/jobs/{jobId}
+        Get: Get a job by jobId from URL path
+            params:
+                Long id
+
+            returns:
+                job
+
+            accessible:
+                Company, Applicant
+
+            notes:
+                1. jobId must be presented or it would be handled by /api/jobs
+
+Applications:
+
+    /api/applications
+        GET: Search for applications by given parameters
+            params:
+                Long id (Optional),
+                Long jobid (Optional),
+                Long userid (Optional),
+                String applicationstatus (Optional)
+
+            returns:
+                List of qualified applications
+
+            accessible:
+                Company, Applicant
+
+            notes:
+                1. At least one of the parameter must be given
+
+        POST: Save a new application
+            params:
+                Long jobid
+
+            returns:
+                Error Messages
+
+            accessible:
+                Applicant
+
+            notes:
+                1. jobid parameter must be given while other parameters will be automatically fetched from session
+                2. A single applicant may only submit one application for a single job
+                3. Applicant may not submit application for closed jobs
+                4. Application Status will be automatically set to Pending
+
+        PUT: //TODO
+
+        DELETE: Delete a existing application
+            params:
+                Long id
+
+            returns:
+                Error Messages
+
+            accessible:
+                Applicant
+
+            notes:
+                1. A applicant user can only delete a application posted by the same applicant user

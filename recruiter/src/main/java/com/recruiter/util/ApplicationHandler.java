@@ -93,6 +93,39 @@ public class ApplicationHandler {
         }
     }
 
+//    @RequestMapping(value = "/api/applications", method = RequestMethod.PUT)
+//    @ResponseBody
+//    public ResponseEntity updateApplication(
+//            @RequestParam(name = "id") Long id,
+//            @RequestParam(name = "applicationstatus") String applicationstatus) {
+//        String currentUsername = userService.getCurrentUsername();
+//        if (!userService.isCompanyUser(currentUsername))
+//            return new ResponseEntity<>("You are not authorized to update a job", HttpStatus.FORBIDDEN);
+//        else {
+//            Optional<User> currentUser = Optional.ofNullable(userService.findByUsername(currentUsername));
+////            if (!applicationService.isExist(id, currentUser.get().getId())) {
+//                return new ResponseEntity<>("Application Does Not Exist", HttpStatus.BAD_REQUEST);
+//            } else {
+//                Application application = applicationService.findById(id);
+//                application.setApplicationStatus(applicationstatus);
+//
+//                Integer applicationUpdateStatus;
+//                applicationUpdateStatus = applicationService.update(application);
+//                if (applicationUpdateStatus == 0) {
+//                    return ResponseEntity.status(HttpStatus.OK).body("A new job has been posted!");
+//                } else if(applicationUpdateStatus == 1) {
+//                    return new ResponseEntity<>("Salary/ExperienceLevel should not be 0", HttpStatus.FORBIDDEN);
+//                } else if(applicationUpdateStatus == 2) {
+//                    return new ResponseEntity<>("Job Title Already Existed", HttpStatus.BAD_REQUEST);
+//                } else if(applicationUpdateStatus == 3) {
+//                    return new ResponseEntity<>("Invalid Job Status", HttpStatus.BAD_REQUEST);
+//                } else {
+//                    return new ResponseEntity<>("Something Went Wrong", HttpStatus.NOT_FOUND);
+//                }
+//            }
+//        }
+//    }
+
     @RequestMapping(value = "/api/applications", method = RequestMethod.DELETE)
     @ResponseBody
     public ResponseEntity deleteApplication(

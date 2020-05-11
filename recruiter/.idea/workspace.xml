@@ -2,37 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4c9e99a0-d8c0-4dc3-806d-666eadd9022d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/repository/ApplicationRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/repository/JobRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/service/impl/ApplicationServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/service/impl/JobServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/validator/JobValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/API List" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/configuration/MyUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/configuration/MyUserDetailsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/configuration/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/configuration/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/model/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/model/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/model/Job.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/model/Job.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/model/MyUserDetails.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/repository/ApplicationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/repository/ApplicationRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/service/ApplicationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/service/ApplicationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/service/JobService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/service/JobService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/service/impl/ApplicationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/service/impl/ApplicationServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/store/ApplicationStore.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/store/JobStore.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/store/UserStore.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/util/ApplicationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/util/ApplicationHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/util/HomeHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/util/HomeHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/util/JobHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/util/JobHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/util/UserHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/util/UserHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/validator/UserValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/validator/UserValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/validation.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/validation.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/registration.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/registration.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/recruiter/model/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/recruiter/model/Application.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/recruiter/model/Job.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/recruiter/model/Job.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/recruiter/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/recruiter/model/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/recruiter/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/recruiter/service/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/recruiter/util/UserHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/recruiter/util/UserHandler.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,7 +173,7 @@
       <workItem from="1583100516335" duration="43000" />
       <workItem from="1583100881978" duration="397000" />
       <workItem from="1583299835920" duration="15955000" />
-      <workItem from="1587333400061" duration="124387000" />
+      <workItem from="1587333400061" duration="129852000" />
     </task>
     <task id="LOCAL-00001" summary="added application class and implementations">
       <created>1583349514407</created>
@@ -223,7 +203,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588753949447</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="added job and application back-end">
+      <created>1589155431121</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1589155431121</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,7 +266,8 @@
     <MESSAGE value="added application class and implementations" />
     <MESSAGE value="added application status" />
     <MESSAGE value="added user registration/login function" />
-    <option name="LAST_COMMIT_MESSAGE" value="added user registration/login function" />
+    <MESSAGE value="added job and application back-end" />
+    <option name="LAST_COMMIT_MESSAGE" value="added job and application back-end" />
   </component>
   <component name="WindowStateProjectService">
     <state x="-1680" y="253" key="#Assign_Data_Sources" timestamp="1588886097127">
@@ -294,6 +282,10 @@
       <screen x="-2560" y="-121" width="2560" height="1417" />
     </state>
     <state x="-1813" y="59" width="1010" height="725" key="#com.intellij.execution.impl.EditConfigurationsDialog/-2560.-121.2560.1417/0.23.1680.1027@-2560.-121.2560.1417" timestamp="1588814327665" />
+    <state x="-1526" y="397" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1589155775431">
+      <screen x="-2560" y="-121" width="2560" height="1417" />
+    </state>
+    <state x="-1526" y="397" key="#com.intellij.fileTypes.FileTypeChooser/-2560.-121.2560.1417/0.23.1680.1027@-2560.-121.2560.1417" timestamp="1589155775431" />
     <state x="-1467" y="295" key="#com.intellij.ide.util.MemberChooser" timestamp="1589100042705">
       <screen x="-2560" y="-121" width="2560" height="1417" />
     </state>
@@ -316,10 +308,10 @@
       <screen x="-2560" y="-121" width="2560" height="1417" />
     </state>
     <state x="-1542" y="341" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/-2560.-121.2560.1417/0.23.1680.1027@-2560.-121.2560.1417" timestamp="1589097712495" />
-    <state x="-1832" y="106" key="CommitChangelistDialog2" timestamp="1589155339438">
+    <state x="-1832" y="106" key="CommitChangelistDialog2" timestamp="1589155430651">
       <screen x="-2560" y="-121" width="2560" height="1417" />
     </state>
-    <state x="-1832" y="106" key="CommitChangelistDialog2/-2560.-121.2560.1417/0.23.1680.1027@-2560.-121.2560.1417" timestamp="1589155339438" />
+    <state x="-1832" y="106" key="CommitChangelistDialog2/-2560.-121.2560.1417/0.23.1680.1027@-2560.-121.2560.1417" timestamp="1589155430651" />
     <state x="-1767" y="191" key="CommitChangelistDialog2/0.22.1680.1028/-2560.-122.2560.1418@-2560.-122.2560.1418" timestamp="1583349514248" />
     <state x="478" y="187" key="CommitChangelistDialog2/0.22.1680.1028@0.22.1680.1028" timestamp="1583356485128" />
     <state x="-2460" y="-21" width="2360" height="1218" key="DiffContextDialog" timestamp="1589155293945">
@@ -409,10 +401,10 @@
     <state x="-2020" y="43" key="SettingsEditor/-2560.-121.2560.1417/0.23.1680.1027@-2560.-121.2560.1417" timestamp="1588060138867" />
     <state x="0" y="22" key="SettingsEditor/0.22.1680.1028@0.22.1680.1028" timestamp="1583371173686" />
     <state x="0" y="22" key="SettingsEditor/0.22.1920.1058@0.22.1920.1058" timestamp="1583370674539" />
-    <state x="-1964" y="380" width="1295" height="520" key="Vcs.Push.Dialog.v2" timestamp="1588753961434">
+    <state x="-1964" y="380" width="1295" height="520" key="Vcs.Push.Dialog.v2" timestamp="1589155450402">
       <screen x="-2560" y="-121" width="2560" height="1417" />
     </state>
-    <state x="-1964" y="380" width="1295" height="520" key="Vcs.Push.Dialog.v2/-2560.-121.2560.1417/0.23.1680.1027@-2560.-121.2560.1417" timestamp="1588753961434" />
+    <state x="-1964" y="380" width="1295" height="520" key="Vcs.Push.Dialog.v2/-2560.-121.2560.1417/0.23.1680.1027@-2560.-121.2560.1417" timestamp="1589155450402" />
     <state x="-1680" y="327" key="Vcs.Push.Dialog.v2/0.22.1680.1028/-2560.-122.2560.1418@-2560.-122.2560.1418" timestamp="1583349556340" />
     <state x="578" y="348" key="Vcs.Push.Dialog.v2/0.22.1680.1028@0.22.1680.1028" timestamp="1583356490929" />
     <state x="-1544" y="278" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1588059045459">
