@@ -9,7 +9,7 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long jobId;
-    private Long userId;
+    private Long applicantId;
     private String applicationStatus;
 
     public Long getId() {
@@ -28,12 +28,12 @@ public class Application {
         this.jobId = jobId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getApplicantId() {
+        return applicantId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setApplicantId(Long userId) {
+        this.applicantId = userId;
     }
 
     public String getApplicationStatus() {

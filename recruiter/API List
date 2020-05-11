@@ -132,7 +132,19 @@ Applications:
                 3. Applicant may not submit application for closed jobs
                 4. Application Status will be automatically set to Pending
 
-        PUT: //TODO
+        PUT: Update application status
+            params:
+                Long id
+                String applicationstatus
+
+            returns:
+                Error Messages
+
+            accessible:
+                Company
+
+            notes:
+                1. Application has only 3 status: Pending, Admitted, Rejected
 
         DELETE: Delete a existing application
             params:

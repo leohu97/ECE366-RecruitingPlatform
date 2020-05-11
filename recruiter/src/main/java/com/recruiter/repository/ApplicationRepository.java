@@ -15,11 +15,13 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
 
     List<Application> findAll();
 
-    Optional<Application> findByJobIdAndUserId(Long jobId, Long userId);
+    Optional<Application> findByJobIdAndApplicantId(Long jobId, Long applicantId);
 
-    Optional<Application> findByIdAndUserId(Long Id, Long userId);
+    Optional<Application> findByIdAndApplicantId(Long Id, Long applicantId);
 
-    Optional<Application> findByIdAndJobIdAndUserId(Long applicationId, Long jobId, Long userId);
+    Optional<Application> findByIdAndJobIdAndApplicantId(Long Id, Long jobId, Long applicantId);
+
+    Optional<Application> findByIdAndJobId(Long Id, Long jobId);
 
     @Modifying
     @Transactional

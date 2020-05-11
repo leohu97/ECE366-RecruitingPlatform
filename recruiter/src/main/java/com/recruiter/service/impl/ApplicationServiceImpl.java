@@ -1,6 +1,7 @@
 package com.recruiter.service.impl;
 
 import com.recruiter.model.Application;
+import com.recruiter.model.Job;
 import com.recruiter.repository.ApplicationRepository;
 import com.recruiter.service.ApplicationService;
 import com.recruiter.service.JobService;
@@ -18,13 +19,26 @@ public class ApplicationServiceImpl implements ApplicationService {
     private JobService jobService;
 
     @Override
-    public Integer save(Application application, Long userId) {
-        if (isExist(application.getJobId(), userId)) {
+    public Integer save(Application application, Long applicantId) {
+        if (isExist(application.getJobId(), applicantId)) {
             return 1;
         } else if(!jobService.isExist(application.getJobId())){
             return 2;
         } else if(!jobService.isOpen(application.getJobId())) {
             return 3;
+        }
+        applicationRepository.save(application);
+        return 0;
+    }
+
+    @Override
+    public Integer update(Application application, Long companyId) {
+        Long jobId = application.getJobId();
+
+        if (!jobService.isExist(jobId, companyId)) {
+            //if there is no job with given jobId and companyId,
+            // there is no such application as well
+            return 1;
         }
         applicationRepository.save(application);
         return 0;
@@ -55,8 +69,8 @@ public class ApplicationServiceImpl implements ApplicationService {
 //    }
 
     @Override
-    public Optional<Application> findByIdAndUserId(Long applicationId, Long userId) {
-        return applicationRepository.findByIdAndUserId(applicationId, userId);
+    public Optional<Application> findByIdAndApplicantId(Long applicationId, Long applicantId) {
+        return applicationRepository.findByIdAndApplicantId(applicationId, applicantId);
     }
 
 
@@ -64,12 +78,16 @@ public class ApplicationServiceImpl implements ApplicationService {
         return applicationRepository.findById(applicationId).isPresent();
     }
 
-    public boolean isExist(Long jobId, Long userId) {
-        return applicationRepository.findByJobIdAndUserId(jobId, userId).isPresent();
+    public boolean isExist(Long jobId, Long applicantId) {
+        return applicationRepository.findByJobIdAndApplicantId(jobId, applicantId).isPresent();
     }
 
-    public boolean isExist(Long applicationId, Long jobId, Long userId) {
-        return applicationRepository.findByIdAndJobIdAndUserId(applicationId, jobId, userId).isPresent();
+    public boolean isExistbyAppIdAndJobId(Long applicationId, Long jobId) {
+        return applicationRepository.findByIdAndJobId(applicationId, jobId).isPresent();
+    }
+
+    public boolean isExist(Long applicationId, Long jobId, Long applicantId) {
+        return applicationRepository.findByIdAndJobIdAndApplicantId(applicationId, jobId, applicantId).isPresent();
     }
 
 

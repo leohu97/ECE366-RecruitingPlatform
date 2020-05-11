@@ -7,21 +7,23 @@ import java.util.Optional;
 
 public interface ApplicationService {
 
-    Integer save(Application application, Long userId);
+    Integer save(Application application, Long applicantId);
 
-    Integer update(Application application);
+    Integer update(Application application, Long applicantId);
 
     void deleteById(Long id);
 
     Application findById(Long id);
 
-    Optional<Application> findByIdAndUserId(Long applicationId, Long userId);
+    Optional<Application> findByIdAndApplicantId(Long applicationId, Long applicantId);
 
     boolean isExist(Long applicationId);
 
-    boolean isExist(Long jobId, Long userId);
+    boolean isExist(Long jobId, Long applicantId);
 
-    boolean isExist(Long applicationId, Long jobId, Long userId);
+    boolean isExist(Long applicationId, Long jobId, Long applicantId);
+
+    boolean isExistbyAppIdAndJobId(Long applicationId, Long jobId);
 }
 //    }
 //
