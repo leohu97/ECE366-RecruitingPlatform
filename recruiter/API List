@@ -1,6 +1,6 @@
 Title: API List for Recruiting Platform
-Version: 1.0
-Date: May 11 2020
+Version: 1.1
+Date: May 12 2020
 
 User:
 
@@ -32,7 +32,8 @@ Job:
                 Long salary (Optional),
                 String title (Optional),
                 String location (Optional),
-                Long experienceLevel (Optional),
+                Long experiencelevel (Optional),
+                Long companyid (Optional)
 
             returns:
                 List of qualified jobs

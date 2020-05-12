@@ -37,8 +37,9 @@ public class JobHandler {
             @RequestParam(name = "salary", required = false) Long salary,
             @RequestParam(name = "title", required = false) String title,
             @RequestParam(name = "location", required = false)  String location,
-            @RequestParam(name = "experienceLevel", required = false) Long experienceLevel) {
-        if (null == salary && null == title && null == location && null == experienceLevel) {
+            @RequestParam(name = "experiencelevel", required = false) Long experienceLevel,
+            @RequestParam(name = "companyid", required = false) Long companyId) {
+        if (null == salary && null == title && null == location && null == experienceLevel && null == companyId) {
             return new ResponseEntity("At least one parameter is required", HttpStatus.BAD_REQUEST);
         } else {
             Job job = new Job();
@@ -46,6 +47,7 @@ public class JobHandler {
             job.setTitle(title);
             job.setLocation(location);
             job.setExperienceLevel(experienceLevel);
+            job.setCompanyId(companyId);
 
 //            ExampleMatcher matcher = ExampleMatcher.matching()
 //                    .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)

@@ -43,7 +43,7 @@ public class UserHandler {
     @Autowired
     private UserValidator userValidator;
 
-    @RequestMapping(value = "/api/cuurentuser", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/currentuser", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<String> getCurrentUser() {
         String currentUsername = userService.getCurrentUsername();
