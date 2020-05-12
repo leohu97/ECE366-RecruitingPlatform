@@ -15,6 +15,8 @@ public interface ApplicationService {
 
     Application findById(Long id);
 
+    Optional<Application> findByJobIdAndApplicantId(Long jobId, Long applicantId);
+
     Optional<Application> findByIdAndApplicantId(Long applicationId, Long applicantId);
 
     boolean isExist(Long applicationId);

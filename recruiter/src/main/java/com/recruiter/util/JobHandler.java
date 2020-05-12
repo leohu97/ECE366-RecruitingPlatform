@@ -81,11 +81,12 @@ public class JobHandler {
             @RequestParam(name = "title", required = false) String title,
             @RequestParam(name = "location", required = false)  String location,
             @RequestParam(name = "experienceLevel", required = false) Long experienceLevel,
-            @RequestParam(name = "jobStatus", required = false) Integer jobStatus) {
+            @RequestParam(name = "jobStatus", required = false) Integer jobStatus,
+            @RequestParam(name = "description", required = false) String description) {
         String currentUsername = userService.getCurrentUsername();
-        if (null == salary && null == title && null == location && null == experienceLevel && null == jobStatus) {
+        if (null == salary && null == title && null == location && null == experienceLevel && null == jobStatus && null == description) {
             return new ResponseEntity("At least one parameter is required", HttpStatus.BAD_REQUEST);
-        } else if((title != null && title.isEmpty()) || (location != null && location.isEmpty())) {
+        } else if((title != null && title.isEmpty()) || (location != null && location.isEmpty()) ||(description != null && description.isEmpty())) {
             return new ResponseEntity<>("No Null Parameter Allowed", HttpStatus.BAD_REQUEST);
         } else if (!userService.isCompanyUser(currentUsername))
             return new ResponseEntity<>("You are not authorized to update a job", HttpStatus.FORBIDDEN);
@@ -109,6 +110,9 @@ public class JobHandler {
                 }
                 if (jobStatus != null) {
                     job.setJobStatus(jobStatus);
+                }
+                if (jobStatus != null) {
+                    job.setDescription(description);
                 }
                 Integer jobUpdateStatus;
                 jobUpdateStatus = jobService.update(job);
@@ -134,9 +138,10 @@ public class JobHandler {
             @RequestParam(name = "salary") Long salary,
             @RequestParam(name = "title") String title,
             @RequestParam(name = "location")  String location,
-            @RequestParam(name = "experienceLevel") Long experienceLevel) {
+            @RequestParam(name = "experienceLevel") Long experienceLevel,
+            @RequestParam(name = "description") String description) {
 
-        if(null == salary || title.isEmpty() || location.isEmpty() || null == experienceLevel) {
+        if(null == salary || title.isEmpty() || location.isEmpty() || null == experienceLevel || description.isEmpty()) {
             return new ResponseEntity<>("No Null Parameter Allowed", HttpStatus.BAD_REQUEST);
         }
         String currentUsername = userService.getCurrentUsername();
@@ -152,6 +157,7 @@ public class JobHandler {
         job.setExperienceLevel(experienceLevel);
         job.setJobStatus(0);
         job.setCompanyId(currentUser.get().getId());
+        job.setDescription(description);
 
         Integer jobPostStatus;
         jobPostStatus = jobService.save(job);

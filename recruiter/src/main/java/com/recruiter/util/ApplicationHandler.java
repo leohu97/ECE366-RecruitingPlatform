@@ -4,6 +4,7 @@ import com.recruiter.model.Application;
 import com.recruiter.model.User;
 import com.recruiter.repository.ApplicationRepository;
 import com.recruiter.service.ApplicationService;
+import com.recruiter.service.FileService;
 import com.recruiter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +32,12 @@ public class ApplicationHandler {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    FileService fileService;
+
+    @Autowired
+    private HttpServletRequest request;
 
     @RequestMapping(value = "/api/applications", method = RequestMethod.GET)
     @ResponseBody
@@ -62,7 +72,8 @@ public class ApplicationHandler {
     @RequestMapping(value = "/api/applications", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity addApplication(
-            @RequestParam(name = "jobid") Long jobid) {
+            @RequestParam(name = "jobid") Long jobid,
+            @RequestParam(name = "file") MultipartFile file) throws IOException {
         if(null == jobid) {
             return new ResponseEntity<>("No Null Parameter Allowed", HttpStatus.BAD_REQUEST);
         }
@@ -71,15 +82,20 @@ public class ApplicationHandler {
         if (!currentUser.isPresent()|| !currentUser.get().getAccountType().equals("Applicant")) {
             return new ResponseEntity<>("You are not authorized to post a new application", HttpStatus.FORBIDDEN);
         }
-
+        Long applicantId = currentUser.get().getId();
         Application application = new Application();
         application.setJobId(jobid);
-        application.setApplicantId(currentUser.get().getId());
+        application.setApplicantId(applicantId);
         application.setApplicationStatus("Pending");
 
         Integer applicationPostStatus;
         applicationPostStatus = applicationService.save(application, currentUser.get().getId());
         if (applicationPostStatus == 0) {
+            String uploadsDir = "/uploads/";
+            Long applicationId = applicationService.findByJobIdAndApplicantId(jobid, applicantId).get().getId();
+            String filename = applicationId + ".pdf";
+            String realPathtoUploads =  request.getServletContext().getRealPath(uploadsDir);
+            fileService.uploadFile(realPathtoUploads, file, filename);
             return ResponseEntity.status(HttpStatus.OK).body("A new application has been posted!");
         } else if(applicationPostStatus == 1) {
             return new ResponseEntity<>("Application Already Exists!", HttpStatus.BAD_REQUEST);

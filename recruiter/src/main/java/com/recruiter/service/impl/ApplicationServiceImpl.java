@@ -69,6 +69,11 @@ public class ApplicationServiceImpl implements ApplicationService {
 //    }
 
     @Override
+    public Optional<Application> findByJobIdAndApplicantId(Long jobId, Long applicantId) {
+        return applicationRepository.findByJobIdAndApplicantId(jobId, applicantId);
+    }
+
+    @Override
     public Optional<Application> findByIdAndApplicantId(Long applicationId, Long applicantId) {
         return applicationRepository.findByIdAndApplicantId(applicationId, applicantId);
     }

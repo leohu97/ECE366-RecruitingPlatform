@@ -22,6 +22,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -41,6 +42,19 @@ public class UserHandler {
 
     @Autowired
     private UserValidator userValidator;
+
+    @RequestMapping(value = "/api/cuurentuser", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<String> getCurrentUser() {
+        String currentUsername = userService.getCurrentUsername();
+        User currentuser = userService.findByUsername(currentUsername);
+        User tempUser = currentuser;
+        tempUser.setPassword("");
+        tempUser.setPasswordConfirm("");
+        tempUser.setRoles("");
+
+        return new ResponseEntity(tempUser, HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/api/users", method = RequestMethod.GET)
     @ResponseBody

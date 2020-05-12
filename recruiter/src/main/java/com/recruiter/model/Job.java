@@ -13,6 +13,7 @@ public class Job {
     private String title;
     private String location;
     private Long experienceLevel;
+    private String description;
 
     // 0: Job Open
     // 1: Job Closed
@@ -73,6 +74,14 @@ public class Job {
 
     public void setJobStatus(Integer jobStatus) {
         this.jobStatus = jobStatus;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
 

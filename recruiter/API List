@@ -12,6 +12,18 @@ User:
     using a form named "userForm" to submit
     Templates web page can be found at src/main/webapp/
 
+    /api/currentuser
+        GET: Get info of current user
+            params:
+                N/A
+
+            returns:
+                Current user info with password, passwordconfirm, roles censored
+
+            accessible:
+                Company, Applicant
+
+
 Job:
 
     /api/jobs
@@ -119,6 +131,7 @@ Applications:
         POST: Save a new application
             params:
                 Long jobid
+                MultipartFile file
 
             returns:
                 Error Messages
@@ -131,6 +144,8 @@ Applications:
                 2. A single applicant may only submit one application for a single job
                 3. Applicant may not submit application for closed jobs
                 4. Application Status will be automatically set to Pending
+                5. The file should be posted through "body" with form-data
+                6. Files are saved to webapp/uploads with filename changed to {applicationId}.pdf
 
         PUT: Update application status
             params:
@@ -158,3 +173,21 @@ Applications:
 
             notes:
                 1. A applicant user can only delete a application posted by the same applicant user
+
+File:
+
+    /api/file
+        POST: upload a file
+            params:
+                MultipartFile file,
+                String filename
+
+            returns:
+                Error Messages
+
+            accessible:
+                Company, Applicant
+
+            notes:
+                1. The file should be posted through body with form-data
+                2. Files are saved to webapp/uploads
