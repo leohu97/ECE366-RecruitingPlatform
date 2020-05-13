@@ -24,8 +24,6 @@ public interface JobRepository extends JpaRepository<Job, Long> {
 
     Optional<Job> findByCompanyIdAndTitle(Long companyId, String title);
 
-
-
     @Modifying
     @Transactional
     @Query("delete from Job job where job.id = :id")

@@ -1,5 +1,5 @@
 Title: API List for Recruiting Platform
-Version: 1.2
+Version: 1.3
 Date: May 12 2020
 
 User:
@@ -34,6 +34,7 @@ Job:
                 String location (Optional),
                 Long experiencelevel (Optional),
                 Long companyid (Optional)
+                Long minsalary (Optional)
 
             returns:
                 List of qualified jobs
@@ -43,6 +44,7 @@ Job:
 
             notes:
                 1. At least one of the parameter must be given
+                2. if salary and minsalary are presented simultaneously, minsalary will be ignored
 
         POST: Save a new job
             params:
