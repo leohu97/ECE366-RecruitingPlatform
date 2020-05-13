@@ -5,6 +5,7 @@ import com.recruiter.model.User;
 import com.recruiter.repository.ApplicationRepository;
 import com.recruiter.service.ApplicationService;
 import com.recruiter.service.FileService;
+import com.recruiter.service.JobService;
 import com.recruiter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -19,6 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,6 +37,9 @@ public class ApplicationHandler {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private JobService jobService;
 
     @Autowired
     FileService fileService;

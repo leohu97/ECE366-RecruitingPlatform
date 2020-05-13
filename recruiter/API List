@@ -1,5 +1,5 @@
 Title: API List for Recruiting Platform
-Version: 1.1
+Version: 1.2
 Date: May 12 2020
 
 User:
@@ -178,6 +178,20 @@ Applications:
 File:
 
     /api/file
+        GET: retrieve a file
+            params:
+                Long id
+
+            returns:
+                pdf file
+
+            accessible:
+                Company
+
+            notes:
+                1. Only the company associated with the application could retrieve the file
+
+
         POST: upload a file
             params:
                 MultipartFile file,
