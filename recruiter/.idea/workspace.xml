@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="4c9e99a0-d8c0-4dc3-806d-666eadd9022d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/configuration/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/configuration/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recruiter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/recruiter.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/service/impl/JobServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/service/impl/JobServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/recruiter/util/JobHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/recruiter/util/JobHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,6 +171,7 @@
       <workItem from="1589268067528" duration="4848000" />
       <workItem from="1589306593198" duration="1162000" />
       <workItem from="1589325681053" duration="3307000" />
+      <workItem from="1589400256785" duration="670000" />
     </task>
     <task id="LOCAL-00001" summary="added application class and implementations">
       <created>1583349514407</created>

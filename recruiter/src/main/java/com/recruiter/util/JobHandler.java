@@ -177,7 +177,7 @@ public class JobHandler {
         if (jobPostStatus == 0) {
             return ResponseEntity.status(HttpStatus.OK).body("A new job has been posted!");
         } else if(jobPostStatus == 1) {
-            return new ResponseEntity<>("Salary/ExperienceLevel should not be 0", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Salary should not be 0", HttpStatus.FORBIDDEN);
         } else if(jobPostStatus == 2) {
             return new ResponseEntity<>("Job Title Already Existed", HttpStatus.BAD_REQUEST);
         } else if(jobPostStatus == 3) {
