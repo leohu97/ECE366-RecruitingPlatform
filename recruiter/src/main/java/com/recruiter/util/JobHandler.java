@@ -124,7 +124,7 @@ public class JobHandler {
                 if (jobStatus != null) {
                     job.setJobStatus(jobStatus);
                 }
-                if (jobStatus != null) {
+                if (description != null) {
                     job.setDescription(description);
                 }
                 Integer jobUpdateStatus;
