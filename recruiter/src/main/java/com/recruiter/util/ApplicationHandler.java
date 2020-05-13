@@ -116,7 +116,7 @@ public class ApplicationHandler {
         }
     }
 
-    @RequestMapping(value = "/api/applications", method = RequestMethod.PUT)
+    @RequestMapping(value = "/api/applications/edit", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity updateApplication(
             @RequestParam(name = "id") Long id,
@@ -124,7 +124,7 @@ public class ApplicationHandler {
         String currentUsername = userService.getCurrentUsername();
         if (!userService.isCompanyUser(currentUsername))
             return new ResponseEntity<>("You are not authorized to update a job", HttpStatus.FORBIDDEN);
-        else if (!applicationstatus.matches("Pending|Admitted|Rejected")) {
+        else if (!applicationstatus.matches("Pending|Accepted|Rejected")) {
             return new ResponseEntity<>("Invalid Application Status Parameter", HttpStatus.BAD_REQUEST);
         } else {
             Optional<User> currentUser = Optional.ofNullable(userService.findByUsername(currentUsername));
@@ -152,7 +152,7 @@ public class ApplicationHandler {
         }
     }
 
-    @RequestMapping(value = "/api/applications", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/api/applications/delete", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity deleteApplication(
             @RequestParam(name = "id") Long id) {

@@ -189,7 +189,7 @@ File:
                 Company
 
             notes:
-                1. Only the company associated with the application could retrieve the file
+                1. Only the company asso    ciated with the application could retrieve the file
 
 
         POST: upload a file
