@@ -86,7 +86,7 @@ public class JobHandler {
         }
     }
 
-    @RequestMapping(value = "/api/jobs", method = RequestMethod.PUT)
+    @RequestMapping(value = "/api/jobs/edit", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity updateJob(
             @RequestParam(name = "id") Long id,
@@ -187,7 +187,7 @@ public class JobHandler {
         }
     }
 
-    @RequestMapping(value = "/api/jobs", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/api/jobs/delete", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity deleteJob(
             @RequestParam(name = "title") String title) {
