@@ -17,7 +17,7 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public Integer save(Job job) {
-        if (job.getSalary() == 0 || job.getExperienceLevel() == 0) {
+        if (job.getSalary() == 0) {
             return 1;
         } else if(isExist(job.getTitle(), job.getCompanyId())){
             return 2;
@@ -31,7 +31,7 @@ public class JobServiceImpl implements JobService {
     //
     @Override
     public Integer update(Job job) {
-        if (job.getSalary() == 0 || job.getExperienceLevel() == 0) {
+        if (job.getSalary() == 0) {
             return 1;
         } else if((isExist(job.getTitle(), job.getCompanyId())) && (job.getId() != findByCompanyIdAndTitle(job.getCompanyId(), job.getTitle()).get().getId())){
             return 2;
