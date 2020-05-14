@@ -9,7 +9,7 @@ Project by Liao Hu, Omar Thenmalai
 
 - Maven, Spring
 
-This project uses the `Maven` project manager and `Spring` as the framework.
+This project uses the `Maven` project manager and `Spring` as the framework with a front-end build in `ReactJS`.
 
 To run the project, simply clone the project to a local directory and load the project with `IntelliJ IDEA`.
 
