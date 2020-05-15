@@ -3,118 +3,114 @@ package com.recruiter.util;
 import com.google.gson.Gson;
 import com.recruiter.model.Job;
 import com.recruiter.model.User;
+import com.recruiter.repository.UserRepository;
+import com.recruiter.service.SecurityService;
 import com.recruiter.service.UserService;
-import com.recruiter.store.UserStore;
-import org.apache.coyote.Response;
+import com.recruiter.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-@RestController
-@RequestMapping("/users")
+@Controller
 public class UserHandler {
-
+    @Autowired
     private UserService userService;
-    private UserStore userStore;
 
     @Autowired
-    public UserHandler() {
-        this.userStore = new UserStore();
-        this.userService = new UserService(userStore);
+    private UserRepository userRepository;
+
+    @Autowired
+    private SecurityService securityService;
+
+    @Autowired
+    private UserValidator userValidator;
+
+    @RequestMapping(value = "/api/currentuser", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<String> getCurrentUser() {
+        String currentUsername = userService.getCurrentUsername();
+        User currentuser = userService.findByUsername(currentUsername);
+        User tempUser = currentuser;
+        tempUser.setPassword("");
+        tempUser.setPasswordConfirm("");
+        tempUser.setRoles("");
+
+        return new ResponseEntity(tempUser, HttpStatus.OK);
     }
 
-    @PostMapping("login")
-    public ResponseEntity<String> logIn(
-            @RequestParam(value = "password", defaultValue="") String password,
-            @RequestParam(value = "email", defaultValue="") String email) {
-        int status = userService.logIn(email, password);
-        if(status == 2) {
-            return new ResponseEntity<>("Not a valid email!", HttpStatus.UNPROCESSABLE_ENTITY);
-        } else if (status == 1) {
-            return new ResponseEntity<>("Incorrect Password!", HttpStatus.UNAUTHORIZED);
-        } else if(status == -1) {
-            return new ResponseEntity<>("No account with that email exists!", HttpStatus.NOT_FOUND);
-        } else if(status == 0){
-            return new ResponseEntity<>("Successfully logged in!", HttpStatus.OK);
-        }
-        
-        return new ResponseEntity<>("ERROR!", HttpStatus.NOT_FOUND);
-    }
-
-    @PostMapping("createAccount")
-    public ResponseEntity<String> createAccount(
-            @RequestParam(value = "firstName", defaultValue = "") String firstName,
-            @RequestParam(value = "lastName", defaultValue = "") String lastName,
-            @RequestParam(value = "email", defaultValue = "") String email,
-            @RequestParam(value = "accountType", defaultValue = "") String accountType,
-            @RequestParam(value = "password", defaultValue = "") String password) {
-
-        CreateUserRequest createUserRequest = new CreateUserRequest(firstName, lastName, accountType, email, password);
-        int status = userService.createAccount(createUserRequest);
-        if(status == 2) {
-            return new ResponseEntity<>("Not a valid email!", HttpStatus.UNPROCESSABLE_ENTITY);
-        } else if (status == 1) {
-            return new ResponseEntity<>("An account with the email, " + email +", already exists!", HttpStatus.CONFLICT);
-        } else if(status == -1) {
-            return new ResponseEntity<>("At least one of the required fields is empty!", HttpStatus.NO_CONTENT);
+    @RequestMapping(value = "/api/users", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<String> getAll(
+            @RequestParam(name = "id", required = false) Long id,
+            @RequestParam(name = "email", required = false) String email,
+            @RequestParam(name = "username", required = false) String username,
+            @RequestParam(name = "accountType", required = false) String accountType) {
+        if (null == id && null == email && null == username && null == accountType) {
+            return new ResponseEntity("At least one parameter is required", HttpStatus.BAD_REQUEST);
         } else {
-            return new ResponseEntity<>("Created account!", HttpStatus.OK);
+            User user = new User();
+            user.setId(id);
+
+            Example<User> ex = Example.of(user);
+
+            List<User> result = userRepository.findAll(ex);
+            return new ResponseEntity(result, HttpStatus.OK);
         }
     }
 
-    // for testing
-    @GetMapping("getAccounts")
-    public ResponseEntity<String> getAccounts() {
-        List<User> users = userStore.getUsers();
-        Gson gson = new Gson();
-        String json = gson.toJson(users);
-//        String outStr = "";
-//        for(int i = 0; i<users.size(); i++){
-//            User curUser = users.get(i);
-//            outStr = outStr + curUser.getUserId() + " " + curUser.getFirstName()+ " " + curUser.getLastName() + " " + curUser.getEmail() +
-//                    " " + curUser.getAccountType() + " " + curUser.getPassword() + "\n";
-//        }
-        return new ResponseEntity<>(json, HttpStatus.OK);
+    @GetMapping("/registration")
+    public String registration(Model model) {
+        model.addAttribute("userForm", new User());
+
+        return "registration";
     }
 
+    @PostMapping("/registration")
+    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
+        userValidator.validate(userForm, bindingResult);
 
-    public static class CreateUserRequest {
-        private String firstName;
-        private String lastName;
-        private String accountType; // applicant or company
-        private String email;
-        private String password;
-
-        public CreateUserRequest(String firstName, String lastName, String accountType, String email, String password) {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.accountType = accountType;
-            this.email = email;
-            this.password = password;
+        if (bindingResult.hasErrors()) {
+            return "registration";
         }
 
-        public String getFirstName() {
-            return firstName;
-        }
+        userService.save(userForm);
 
-        public String getLastName() {
-            return lastName;
-        }
+        securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        public String getAccountType() {
-            return accountType;
-        }
+        return "redirect:/welcome";
+    }
 
-        public String getEmail() {
-            return email;
-        }
+    @GetMapping("/login")
+    public String login(Model model, String error, String logout) {
+        if (error != null)
+            model.addAttribute("error", "Your username and password is invalid.");
 
-        public String getPassword() {
-            return password;
-        }
+        if (logout != null)
+            model.addAttribute("message", "You have been logged out successfully.");
+
+        return "login";
+    }
+
+    @GetMapping({"/", "/welcome"})
+    public String welcome(Model model) {
+        return "welcome";
     }
 }
