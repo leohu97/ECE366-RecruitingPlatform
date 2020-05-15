@@ -29,3 +29,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Upload Files ###
+.src/main/webapp/uploads
